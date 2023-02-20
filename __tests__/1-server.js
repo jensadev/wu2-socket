@@ -6,9 +6,12 @@ describe('GET /', () => {
         return supertest(app).get('/').expect(200);
     });
 
-    it('should return a string', () => {
+    it('should return a JSON object from the body', () => {
         return supertest(app)
             .get('/')
-            .expect('Content-Type', /text\/html/);
+            .expect('Content-Type', /json/)
+            .then((response) => {
+                expect(response.body.msg).toBe('Hello World!');
+            });
     });
 });
